@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">EventConnectApp</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="register">Register</string>
+    <string name="click_to_login">Click para ir al login</string>
+    <string name="click_to_register">Registrarse</string>
+    <string name="logout">Cerrar Sesión</string>
+</resources>
