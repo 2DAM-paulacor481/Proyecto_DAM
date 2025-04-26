@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "200550909093",
+    "project_id": "eventconnectapp-96ed6",
+    "storage_bucket": "eventconnectapp-96ed6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:200550909093:android:fbb93065014ee8e123794c",
+        "android_client_info": {
+          "package_name": "iesmm.pmdm.eventconnect"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB13cCoaIDnfN0Jlr5ba36HV8cFl9lLZhI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

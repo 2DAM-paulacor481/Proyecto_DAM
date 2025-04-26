@@ -58,13 +58,23 @@ INSERT INTO Rol VALUES (2, 'USUARIO');
 
 INSERT INTO Usuario (nombre, correo, password, id_rol) 
 VALUES 
-('Juan Pérez', 'juanperez@email.com', '123456', 2),
-('Admin Eventos', 'admin@email.com', 'admin123', 1);
+('Admin Eventos', 'admin@gmail.com', 'admin123', 1),
+('Juan Pérez', 'juanperez@gmail.com', '123456', 2),
+('Laura Gómez', 'laura.gomez@gmail.com', 'contra1234', 2);
+
 
 INSERT INTO Evento (titulo, descripcion, fecha, latitud, longitud, id_creador, categoria)
 VALUES 
 ('Concierto de RocK', 'Banda en vivo en Mairena del Aljarafe', '2025-02-15 20:00:00', 37.345429359235794, -6.058024120614675, 1, 'Música'),
-('Charla de Tecnología', 'Conferencia sobre IA', '2025-03-20 18:00:00', 37.28355159663391, -5.922192290935783, 2, 'Tecnología');
+('Charla de Tecnología', 'Conferencia sobre IA', '2025-03-20 18:00:00', 37.28355159663391, -5.922192290935783, 2, 'Tecnología'),
+('Taller de Fotografía', 'Aprende técnicas de fotografía urbana', '2025-04-10 17:00:00', 37.388, -5.982, 3, 'Arte'),
+('Feria Gastronómica', 'Comida internacional en el parque central', '2025-05-05 12:00:00', 37.379, -5.984, 4, 'Gastronomía'),
+('Maratón 10K', 'Carrera popular por la ciudad', '2025-06-01 08:00:00', 37.389, -5.984, 5, 'Deporte'),
+('Festival de Cine', 'Proyecciones al aire libre', '2025-07-15 21:00:00', 37.390, -5.990, 2, 'Cine');
 
+INSERT INTO Participacion (id_usuario, id_evento) 
+VALUES
+(2,3),
+(3,1);
 
 

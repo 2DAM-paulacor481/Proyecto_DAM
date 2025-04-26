@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">EventConnect</string>
+    <string name="login">Login</string>
+    <string name="email">Correo</string>
+    <string name="password">Contraseña</string>
+    <string name="register">Registro</string>
+    <string name="click_to_login">Click para ir al login</string>
+    <string name="click_to_register">Registrarse</string>
+    <string name="logout">Cerrar Sesión</string>
+
+    <!--Texto Pefil Usuario-->
+    <string name="perfilUsuario">Perfil del Usuario</string>
+    <string name="listaEventos">Lista de Eventos</string>
+    <string name="mapaEventos">Mapa de Eventos</string>
+
+    <!--Texto Pefil Administrador-->
+    <string name="perfilAdmin">Perfil del Administrador</string>
+    <string name="listaUsuarios">Lista de todos los Usuarios</string>
+    <string name="todosEventos">Lista de todo los Eventos</string>
+
+
+    <string name="eslogan">Donde los eventos cobran vida</string>
+
+
+
+
+</resources>

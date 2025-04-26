@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_perfil"
+            android:icon="@drawable/usuario"
+            android:title="@string/perfilAdmin" />
+
+        <item
+            android:id="@+id/nav_lista_usuarios"
+            android:icon="@drawable/users"
+            android:title="@string/listaUsuarios" />
+
+        <item
+            android:id="@+id/nav_lista_eventos"
+            android:icon="@drawable/eventos"
+            android:title="@string/todosEventos" />
+
+        <item
+            android:id="@+id/nav_mapa_eventos"
+            android:icon="@drawable/mapa"
+            android:title="@string/mapaEventos" />
+
+
+    </group>
+
+    <item android:title="">
+        <menu>
+            <item
+                android:id="@+id/nav_cerrar_sesion"
+                android:icon="@drawable/logout"
+                android:title="@string/logout" />
+        </menu>
+    </item>
+
+</menu>
