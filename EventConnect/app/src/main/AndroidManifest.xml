@@ -12,6 +12,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EventConnect"
         tools:targetApi="31">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAFS07q1Job6E0OnrfvXYkVML4LIkN_N7g" />
+
+        <activity
+            android:name=".Fragments.ambosUsuarios.MapaFragment"
+            android:exported="false"
+            android:label="@string/app_name" />
         <activity
             android:name=".MainActivity"
             android:exported="false" />

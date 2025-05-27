@@ -12,12 +12,12 @@
         <item
             android:id="@+id/nav_lista_eventos"
             android:icon="@drawable/eventos"
-            android:title="@string/listaEventos" />
+            android:title="@string/listaEventosUsuario" />
 
         <item
             android:id="@+id/nav_mapa_eventos"
             android:icon="@drawable/mapa"
-            android:title="@string/mapaEventos" />
+            android:title="@string/mapaEventosUsuario" />
 
 
     </group>

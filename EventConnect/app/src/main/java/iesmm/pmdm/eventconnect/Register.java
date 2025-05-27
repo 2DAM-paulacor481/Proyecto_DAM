@@ -25,7 +25,7 @@ import java.util.HashMap;
 
 public class Register extends AppCompatActivity {
 
-    TextInputEditText editTextEmail, editTextPassword;
+    TextInputEditText editTextEmail, editTextPassword, editTextUsername;
     Button buttonReg;
     FirebaseAuth mAuth;
     ProgressBar progressBar;
@@ -37,12 +37,14 @@ public class Register extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         mAuth = FirebaseAuth.getInstance();
+        editTextUsername = findViewById(R.id.username);
         editTextEmail = findViewById(R.id.email);
         editTextPassword = findViewById(R.id.password);
         buttonReg = findViewById(R.id.btn_register);
         progressBar = findViewById(R.id.progressBar);
         textView = findViewById(R.id.loginNow);
 
+        // Boton para iniciar sesion
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,13 +54,22 @@ public class Register extends AppCompatActivity {
             }
         });
 
+        // Boton para registrarse
         buttonReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 progressBar.setVisibility(View.VISIBLE);
 
+                // Datos del usuario
                 String email = String.valueOf(editTextEmail.getText());
                 String password = String.valueOf(editTextPassword.getText());
+                String username = String.valueOf(editTextUsername.getText());
+
+                // Comprobamos que los campos no esten vacios
+                if (TextUtils.isEmpty(username)){
+                    Toast.makeText(Register.this, "Ingresa el nombre de usuario", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(Register.this, "Ingresa el email", Toast.LENGTH_SHORT).show();
@@ -70,6 +81,7 @@ public class Register extends AppCompatActivity {
                     return;
                 }
 
+                // Primero registro el nuevo usuario en firebase auth
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
@@ -78,11 +90,15 @@ public class Register extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     if (user != null) {
+
                                         // Añadimos los datos a la base de datos Realtime
-                                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("usuarios");
+                                        DatabaseReference reference = FirebaseDatabase.getInstance("https://eventconnectapp-96ed6-default-rtdb.europe-west1.firebasedatabase.app")
+                                                .getReference("usuarios");
                                         HashMap<String, Object> map = new HashMap<>();
                                         map.put("correo", email);
-                                        map.put("id_rol", "2"); // Asignar siempre rol de USUARIO (2) al registrarse
+                                        map.put("id_rol", "2"); // Siempre se registra como usuario, nivel 2
+                                        map.put("password", password);
+                                        map.put("username", username);
 
                                         reference.child(user.getUid()).setValue(map)
                                                 .addOnCompleteListener(new OnCompleteListener<Void>() {

@@ -30,6 +30,21 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="@string/nombreUser"
+        android:textColorHint="@color/verdeClaro"
+        app:boxStrokeColor="@color/verdeApagado"
+        app:hintTextColor="@color/verdeApagado">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/verdeOscuro"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:hint="@string/email"
         android:textColorHint="@color/verdeClaro"
         app:boxStrokeColor="@color/verdeApagado"
@@ -45,7 +60,6 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:hint="@string/password"
         android:textColorHint="@color/verdeClaro"
         app:boxStrokeColor="@color/verdeApagado"
@@ -80,11 +94,10 @@
     <TextView
         android:id="@+id/loginNow"
         android:text="@string/click_to_login"
-        android:textStyle="bold"
         android:textSize="18sp"
         android:layout_marginTop="32dp"
         android:gravity="center"
-        android:textColor="@color/verdeApagado"
+        android:textColor="@color/verdeClaro"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

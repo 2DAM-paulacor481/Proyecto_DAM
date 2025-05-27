@@ -1,27 +1,28 @@
 <resources>
     <string name="app_name">EventConnect</string>
-    <string name="login">Login</string>
+    <string name="login">Iniciar sesión</string>
     <string name="email">Correo</string>
+    <string name="nombreUser">Nombre de usuario</string>
     <string name="password">Contraseña</string>
     <string name="register">Registro</string>
-    <string name="click_to_login">Click para ir al login</string>
+    <string name="click_to_login">¿Ya tienes una cuenta? Inicia sesión</string>
     <string name="click_to_register">Registrarse</string>
-    <string name="logout">Cerrar Sesión</string>
+    <string name="logout">Cerrar sesión</string>
 
-    <!--Texto Pefil Usuario-->
-    <string name="perfilUsuario">Perfil del Usuario</string>
-    <string name="listaEventos">Lista de Eventos</string>
-    <string name="mapaEventos">Mapa de Eventos</string>
+    <!--Texto Perfil Usuario-->
+    <string name="perfilUsuario">Perfil del usuario</string>
+    <string name="listaEventosUsuario">Lista de eventos</string>
+    <string name="mapaEventosUsuario">Mapa de eventos</string>
 
-    <!--Texto Pefil Administrador-->
-    <string name="perfilAdmin">Perfil del Administrador</string>
-    <string name="listaUsuarios">Lista de todos los Usuarios</string>
-    <string name="todosEventos">Lista de todo los Eventos</string>
+    <!--Texto Perfil Administrador-->
+    <string name="perfilAdmin">Perfil de administrador</string>
+    <string name="listaUsuariosAdmin">Lista de todos los usuarios</string>
+    <string name="todosEventosAdmin">Lista de todos los eventos</string>
 
 
     <string name="eslogan">Donde los eventos cobran vida</string>
-
-
+    <string name="navigation_drawer_open">Abrir</string>
+    <string name="navigation_drawer_close">Cerrar</string>
 
 
 </resources>

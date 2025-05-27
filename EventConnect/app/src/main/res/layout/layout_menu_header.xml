@@ -8,6 +8,7 @@
     android:padding="16dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
@@ -24,5 +25,7 @@
         android:textSize="18sp"
         android:textColor="@android:color/white"
         android:fontFamily="@font/mufan_rough"/>
+
+
 
 </LinearLayout>
