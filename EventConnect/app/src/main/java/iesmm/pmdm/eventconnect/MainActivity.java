@@ -182,20 +182,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .replace(fragmentContainerId, fragment)
                 .commit();
 
-        // Actualizar el título de la Toolbar (si lo deseas)
-        // Puedes obtener el título del fragmento si implementa una interfaz o de otra forma
-        // setTitle(fragment.getClass().getSimpleName()); // Ejemplo simple
+
         if (sideNavigationView != null) {
-            sideNavigationView.setCheckedItem(menuItemId); // Marca el item seleccionado en el menú
+            sideNavigationView.setCheckedItem(menuItemId);
         }
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId(); // Obtener el ID del ítem seleccionado
-        Fragment selectedFragment = null; // Fragmento a cargar
+        int id = item.getItemId();
+        // Fragment q voy a cargar
+        Fragment selectedFragment = null;
 
-        // Determinar el ID del contenedor de fragmentos basado en el rol actual
+        // Id del fragment container según el rol
         int fragmentContainerId;
         if ("1".equals(idRol)) {
             fragmentContainerId = R.id.fragment_container_admin;
