@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blancoVerdoso"
+    android:padding="16dp">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="8dp"
+        android:layout_marginHorizontal="16dp"
+        android:padding="24dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="24dp">
+
+            <ImageView
+                android:id="@+id/ivProfileIcon"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:src="@drawable/usuario"
+                android:layout_marginBottom="24dp"
+                app:tint="@color/verdePrincipal" />
+
+            <TextView
+                android:id="@+id/tvNombre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nombre de Usuario"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:textColor="@color/verdeOscuro"
+                android:layout_marginBottom="8dp"/>
+
+            <TextView
+                android:id="@+id/tvEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="correo@ejemplo.com"
+                android:textSize="18sp"
+                android:textColor="@color/verdeApagado"
+                android:layout_marginBottom="32dp"/>
+
+            <Button
+                android:id="@+id/btnModificarDatos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Modificar datos"
+                android:backgroundTint="@color/verdePrincipal"
+                android:textColor="@color/white"
+                android:paddingHorizontal="32dp"
+                android:paddingVertical="12dp"
+                android:elevation="4dp"
+                android:stateListAnimator="@null"
+                app:cornerRadius="8dp"/>
+
+            <LinearLayout
+                android:id="@+id/datos_editar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:layout_marginTop="32dp">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:hintTextColor="@color/verdeApagado"
+                    app:boxStrokeColor="@color/verdePrincipal"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etNombre"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Nombre"
+                        android:inputType="textPersonName"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/verdeApagado"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    app:hintTextColor="@color/verdeApagado"
+                    app:boxStrokeColor="@color/verdePrincipal"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Email"
+                        android:inputType="textEmailAddress"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/verdeApagado"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:paddingHorizontal="16dp">
+
+                    <Button
+                        android:id="@+id/btnGuardar"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="Guardar"
+                        android:backgroundTint="@color/verdeApagado"
+                        android:textColor="@color/white"
+                        android:layout_marginEnd="8dp"
+                        android:paddingVertical="12dp"
+                        android:elevation="4dp"
+                        android:stateListAnimator="@null"
+                        app:cornerRadius="8dp"/>
+
+                    <Button
+                        android:id="@+id/btnCancelar"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="Cancelar"
+                        android:textColor="@color/verdeApagado"
+                        android:backgroundTint="@android:color/transparent"
+                        android:layout_marginStart="8dp"
+                        android:paddingVertical="12dp"
+                        android:elevation="0dp"
+                        android:stateListAnimator="@null"
+                        app:cornerRadius="8dp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

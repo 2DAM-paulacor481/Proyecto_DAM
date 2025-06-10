@@ -18,8 +18,10 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
 
 import java.util.HashMap;
 
@@ -44,7 +46,6 @@ public class Register extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         textView = findViewById(R.id.loginNow);
 
-        // Boton para iniciar sesion
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,69 +55,85 @@ public class Register extends AppCompatActivity {
             }
         });
 
-        // Boton para registrarse
         buttonReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 progressBar.setVisibility(View.VISIBLE);
 
-                // Datos del usuario
                 String email = String.valueOf(editTextEmail.getText());
                 String password = String.valueOf(editTextPassword.getText());
                 String username = String.valueOf(editTextUsername.getText());
 
-                // Comprobamos que los campos no esten vacios
                 if (TextUtils.isEmpty(username)){
                     Toast.makeText(Register.this, "Ingresa el nombre de usuario", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
                     return;
                 }
 
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(Register.this, "Ingresa el email", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
                     return;
                 }
 
                 if (TextUtils.isEmpty(password)) {
                     Toast.makeText(Register.this, "Ingresa la contraseña", Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
                     return;
                 }
 
-                // Primero registro el nuevo usuario en firebase auth
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                progressBar.setVisibility(View.GONE);
                                 if (task.isSuccessful()) {
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     if (user != null) {
+                                        // 1. Crear la solicitud para actualizar el nombre de visualización en Firebase Authentication
+                                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                                .setDisplayName(username)
+                                                .build();
 
-                                        // Añadimos los datos a la base de datos Realtime
-                                        DatabaseReference reference = FirebaseDatabase.getInstance("https://eventconnectapp-96ed6-default-rtdb.europe-west1.firebasedatabase.app")
-                                                .getReference("usuarios");
-                                        HashMap<String, Object> map = new HashMap<>();
-                                        map.put("correo", email);
-                                        map.put("id_rol", "2"); // Siempre se registra como usuario, nivel 2
-                                        map.put("password", password);
-                                        map.put("username", username);
-
-                                        reference.child(user.getUid()).setValue(map)
+                                        // 2. Actualizar el perfil del usuario en Firebase Authentication
+                                        user.updateProfile(profileUpdates)
                                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                     @Override
-                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                        if (task.isSuccessful()) {
-                                                            Toast.makeText(Register.this, "Registro exitoso", Toast.LENGTH_SHORT).show();
-                                                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                                            startActivity(intent);
-                                                            finish();
+                                                    public void onComplete(@NonNull Task<Void> profileTask) {
+                                                        if (profileTask.isSuccessful()) {
+                                                            // 3. Una vez que el perfil de Auth se ha actualizado, guardamos los datos en Realtime Database
+                                                            DatabaseReference reference = FirebaseDatabase.getInstance("https://eventconnectapp-96ed6-default-rtdb.europe-west1.firebasedatabase.app")
+                                                                    .getReference("usuarios");
+                                                            HashMap<String, Object> map = new HashMap<>();
+                                                            map.put("correo", email);
+                                                            map.put("id_rol", "2"); // Siempre se registra como usuario, nivel 2
+                                                            map.put("password", password);
+                                                            map.put("username", username);
+
+                                                            reference.child(user.getUid()).setValue(map)
+                                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                        @Override
+                                                                        public void onComplete(@NonNull Task<Void> dbTask) {
+                                                                            progressBar.setVisibility(View.GONE);
+                                                                            if (dbTask.isSuccessful()) {
+                                                                                Toast.makeText(Register.this, "Registro exitoso", Toast.LENGTH_SHORT).show();
+                                                                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                                                                startActivity(intent);
+                                                                                finish();
+                                                                            } else {
+                                                                                Toast.makeText(Register.this, "Error al guardar datos en la base de datos.", Toast.LENGTH_SHORT).show();
+                                                                            }
+                                                                        }
+                                                                    });
                                                         } else {
-                                                            Toast.makeText(Register.this, "Error al guardar datos", Toast.LENGTH_SHORT).show();
+                                                            progressBar.setVisibility(View.GONE);
+                                                            Toast.makeText(Register.this, "Error al actualizar el perfil de usuario en Auth.", Toast.LENGTH_SHORT).show();
                                                         }
                                                     }
                                                 });
                                     }
                                 } else {
-                                    Toast.makeText(Register.this, "Fallo de registro", Toast.LENGTH_SHORT).show();
+                                    progressBar.setVisibility(View.GONE);
+                                    Toast.makeText(Register.this, "Fallo de registro: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
@@ -127,7 +144,6 @@ public class Register extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);

@@ -19,6 +19,8 @@
     <string name="listaUsuariosAdmin">Lista de todos los usuarios</string>
     <string name="todosEventosAdmin">Lista de todos los eventos</string>
 
+    <!--Texto Lista de Usuarios Administrador-->
+    <string name="listaUsuarios">Gestión de Usuarios</string>
 
     <string name="eslogan">Donde los eventos cobran vida</string>
     <string name="navigation_drawer_open">Abrir</string>

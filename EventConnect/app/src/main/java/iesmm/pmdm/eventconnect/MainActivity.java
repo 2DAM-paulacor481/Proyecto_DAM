@@ -2,6 +2,7 @@ package iesmm.pmdm.eventconnect;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.icu.text.LocaleDisplayNames;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -76,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                         // Cargar el layout correcto basado en el rol
                         if ("1".equals(idRol)) { // Rol de Administrador
-                            setContentView(R.layout.layout_menu_admin); // Cargar layout de administrador
+                            setContentView(R.layout.layout_admin_menu); // Cargar layout de administrador
 
                             toolbar = findViewById(R.id.toolbar_admin); // ID de tu Toolbar en activity_admin.xml
                             drawerLayout = findViewById(R.id.drawer_layout_admin); // ID de tu DrawerLayout en activity_admin.xml
@@ -89,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             loadFragment(new MapaFragment(), R.id.nav_mapa_eventos); // O R.id.nav_perfil con new PerfilAdminFragment()
 
                         } else if ("2".equals(idRol)) { // Rol de Usuario Normal
-                            setContentView(R.layout.layout_menu_usuario); // Cargar layout de usuario
+                            setContentView(R.layout.layout_usuario_menu); // Cargar layout de usuario
                             Log.d("MainActivity", "Cargando layout de usuario");
 
                             toolbar = findViewById(R.id.toolbar_usuario); // ID de tu Toolbar en activity_user.xml
@@ -106,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             loadFragment(new MapaFragment(), R.id.nav_mapa_eventos); // O R.id.nav_perfil con new PerfilUserFragment()
 
                         } else {
-                            setContentView(R.layout.layout_menu_usuario);
+                            setContentView(R.layout.layout_usuario_menu);
                             toolbar = findViewById(R.id.toolbar_usuario);
                             drawerLayout = findViewById(R.id.drawer_layout_usuario);
                             sideNavigationView = findViewById(R.id.nav_view_usuario);
@@ -119,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         }
 
                     } else {
-                        setContentView(R.layout.layout_menu_usuario);
+                        setContentView(R.layout.layout_usuario_menu);
                         toolbar = findViewById(R.id.toolbar_usuario);
                         drawerLayout = findViewById(R.id.drawer_layout_usuario);
                         sideNavigationView = findViewById(R.id.nav_view_usuario);
@@ -134,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-                    setContentView(R.layout.layout_menu_usuario);
+                    setContentView(R.layout.layout_usuario_menu);
                     toolbar = findViewById(R.id.toolbar_usuario);
                     drawerLayout = findViewById(R.id.drawer_layout_usuario);
                     sideNavigationView = findViewById(R.id.nav_view_usuario);
@@ -164,14 +165,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void loadFragment(Fragment fragment, int menuItemId) {
         //  el ID del contenedor de fragmentos basado en el rol actual
         int fragmentContainerId;
-        if ("1".equals(idRol)) { // Administrador
+        if ("1".equals(idRol)) {
             fragmentContainerId = R.id.fragment_container_admin;
             Bundle args = new Bundle();
             args.putString("rol", idRol);
             fragment.setArguments(args);
-        } else { // Usuario (o rol desconocido/por defecto)
+        } else {
             fragmentContainerId = R.id.fragment_container_usuario;
-            // Opcional: Pasar el rol al fragmento si lo necesita
             Bundle args = new Bundle();
             args.putString("rol", idRol);
             fragment.setArguments(args);
@@ -204,24 +204,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (id == R.id.nav_perfil) {
             selectedFragment = new PerfilFragment();
-            Toast.makeText(this, id, Toast.LENGTH_SHORT).show();
-
         } else if (id == R.id.nav_lista_eventos) {
             selectedFragment = new ListaEventosFragment();
-            Toast.makeText(this, id, Toast.LENGTH_SHORT).show();
-
         } else if (id == R.id.nav_mapa_eventos) {
             selectedFragment = new MapaFragment();
-            Toast.makeText(this, id, Toast.LENGTH_SHORT).show();
-
         } else if (id == R.id.nav_lista_usuarios) {
-            if ("1".equals(idRol)) {
-                selectedFragment = new ListaUsuariosAdminFragment();
-            } else {
-                selectedFragment = null;
-            }
-            Toast.makeText(this, id, Toast.LENGTH_SHORT).show();
-
+            selectedFragment = new ListaUsuariosAdminFragment();
         } else if (id == R.id.nav_cerrar_sesion) {
             logout();
             drawerLayout.closeDrawer(GravityCompat.START);
@@ -234,9 +222,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Bundle bundle = new Bundle();
             bundle.putString("rol", idRol);
             selectedFragment.setArguments(bundle);
-
-            getSupportFragmentManager()
-                    .beginTransaction()
+            getSupportFragmentManager().beginTransaction()
                     .replace(fragmentContainerId, selectedFragment)
                     .commit();
 
@@ -253,15 +239,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
-
-
     @Override
-    public void onBackPressed() {
-        if (drawerLayout != null && drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
+    protected void onStop() {
+        super.onStop();
+        logout();
     }
 
     private void logout() {
