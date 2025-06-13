@@ -89,23 +89,20 @@ public class Register extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     if (user != null) {
-                                        // 1. Crear la solicitud para actualizar el nombre de visualización en Firebase Authentication
                                         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                                                 .setDisplayName(username)
                                                 .build();
 
-                                        // 2. Actualizar el perfil del usuario en Firebase Authentication
                                         user.updateProfile(profileUpdates)
                                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                     @Override
                                                     public void onComplete(@NonNull Task<Void> profileTask) {
                                                         if (profileTask.isSuccessful()) {
-                                                            // 3. Una vez que el perfil de Auth se ha actualizado, guardamos los datos en Realtime Database
                                                             DatabaseReference reference = FirebaseDatabase.getInstance("https://eventconnectapp-96ed6-default-rtdb.europe-west1.firebasedatabase.app")
                                                                     .getReference("usuarios");
                                                             HashMap<String, Object> map = new HashMap<>();
                                                             map.put("correo", email);
-                                                            map.put("id_rol", "2"); // Siempre se registra como usuario, nivel 2
+                                                            map.put("id_rol", "2");
                                                             map.put("password", password);
                                                             map.put("username", username);
 

@@ -54,13 +54,14 @@ public class ListaUsuariosAdminFragment extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         dao = new DAOImpl();
 
+        // Recibo el rol del usuario
         Bundle args = getArguments();
         if (args != null) {
-            idRol = args.getString("rol");
+            idRol = args.getString("idRol");
             Log.d("ListaUsuariosAdmin", "Rol recibido en onCreate: " + idRol);
         } else {
             idRol = "0";
-            Log.w("ListaUsuariosAdmin", "No se recibió el rol en los argumentos del Fragment. Asumiendo rol '0'.");
+            Log.w("ListaUsuariosAdmin", "No se recibió el rol en los argumentos.");
         }
         listaUsuarios = new ArrayList<>();
     }
@@ -75,14 +76,16 @@ public class ListaUsuariosAdminFragment extends Fragment {
         tvTituloListaUsuarios = view.findViewById(R.id.tvTituloListaUsuarios);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        usuarioAdapter = new UsuarioAdapter(listaUsuarios); // Se pasa la misma instancia de listaUsuarios al adaptador
+        usuarioAdapter = new UsuarioAdapter(listaUsuarios);
         recyclerView.setAdapter(usuarioAdapter);
 
+        // Compruebo el rol del usuario
+        // Si es 1 administrador, muestro la lista de usuarios
         if ("1".equals(idRol)) {
             tvMensajeNoAdmin.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
             tvTituloListaUsuarios.setVisibility(View.VISIBLE);
-            Log.d("ListaUsuariosAdmin", "Rol es 1. Iniciando carga de usuarios.");
+            Log.d("ListaUsuariosAdmin", "Rol es 1, cargando usuarios");
             cargarListaDeUsuarios();
         } else {
             tvMensajeNoAdmin.setVisibility(View.VISIBLE);
@@ -90,33 +93,35 @@ public class ListaUsuariosAdminFragment extends Fragment {
             recyclerView.setVisibility(View.GONE);
             tvTituloListaUsuarios.setVisibility(View.GONE);
             progressBar.setVisibility(View.GONE);
-            Toast.makeText(getContext(), "Acceso denegado: No eres administrador.", Toast.LENGTH_LONG).show();
-            Log.w("ListaUsuariosAdmin", "Rol no es 1. Acceso denegado.");
+            Toast.makeText(getContext(), "Permiso denegado: No eres administrador.", Toast.LENGTH_LONG).show();
         }
 
         return view;
     }
 
+    // Metodo para cargar la lista de usuarios
     private void cargarListaDeUsuarios() {
+        // Muestro el progressBar
         progressBar.setVisibility(View.VISIBLE);
-        Log.d("ListaUsuariosAdmin", "Iniciando obtención de todos los usuarios de Firebase.");
 
         dao.obtenerTodosLosUsuarios(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 progressBar.setVisibility(View.GONE);
+                // Limpio la lista
                 listaUsuarios.clear();
-                Log.d("ListaUsuariosAdmin", "onDataChange: Limpiando lista. Snapshot existe: " + snapshot.exists());
 
+                // Recorro la lista de usuarios
                 if (snapshot.exists()) {
                     for (DataSnapshot userSnapshot : snapshot.getChildren()) {
                         Usuario usuario = userSnapshot.getValue(Usuario.class);
-                        // Corrección: Obtener el rol del campo "id_rol"
                         String rol = userSnapshot.child("id_rol").getValue(String.class);
 
+                        // Si el rol es nulo, lo igualo a 0
                         if (rol == null) {
                             rol = "0";
                         }
+
 
                         if (usuario != null) {
                             Map<String, String> usuarioData = new HashMap<>();
@@ -131,15 +136,14 @@ public class ListaUsuariosAdminFragment extends Fragment {
                     }
                 }
 
-                // AÑADIR ESTE LOG:
-                Log.d("ListaUsuariosAdmin", "Tamaño de listaUsuarios ANTES de actualizarAdapter: " + listaUsuarios.size());
-
+                // Si la lista está vacía, muestro un mensaje
                 if (listaUsuarios.isEmpty()) {
                     Toast.makeText(getContext(), "No se encontraron usuarios para mostrar.", Toast.LENGTH_SHORT).show();
                 }
 
+                // Actualizo el adapter
                 usuarioAdapter.actualizarDatos(listaUsuarios);
-                Log.d("ListaUsuariosAdmin", "Adapter actualizado con " + listaUsuarios.size() + " usuarios.");
+                Log.d("ListaUsuariosAdmin", "UsuarioAdapter actualizado con " + listaUsuarios.size() + " usuarios.");
             }
 
             @Override
@@ -151,21 +155,9 @@ public class ListaUsuariosAdminFragment extends Fragment {
         });
     }
 
-    private void mostrarProgressDialog(String message) {
-        if (progressDialog == null) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-            builder.setMessage(message);
-            builder.setCancelable(false);
-            progressDialog = builder.create();
-        } else {
-            progressDialog.setMessage(message);
-        }
-        if (!progressDialog.isShowing()) {
-            progressDialog.show();
-        }
-    }
 
     private void ocultarProgressDialog() {
+        // Si el diálogo de progreso está visible, lo oculto
         if (progressDialog != null && progressDialog.isShowing()) {
             progressDialog.dismiss();
         }

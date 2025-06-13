@@ -1,14 +1,32 @@
 package iesmm.pmdm.eventconnect.Model;
 
-import java.util.Date;
+import java.util.Map;
+import java.util.HashMap;
 
 public class Evento {
 
+    private String id;
     private String titulo, descripcion, nombreCreador, categoria, fecha;
     private Double latitud;
     private Double longitud;
+    private Map<String, Usuario> participantes;
 
-    // Constructor con todos los campos
+    public Evento() {
+    }
+
+    public Evento(String id, String titulo, String descripcion, String nombreCreador, String categoria, String fecha, Double latitud, Double longitud, Map<String, Usuario> participantes) {
+        this.id = id;
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.nombreCreador = nombreCreador;
+        this.categoria = categoria;
+        this.fecha = fecha;
+        this.latitud = latitud;
+        this.longitud = longitud;
+        this.participantes = participantes;
+    }
+
+
     public Evento(String titulo, String descripcion, String fecha, Double latitud, Double longitud, String nombreCreador, String categoria) {
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -17,14 +35,25 @@ public class Evento {
         this.longitud = longitud;
         this.nombreCreador = nombreCreador;
         this.categoria = categoria;
+        this.participantes = new HashMap<>();
     }
 
-    // Constructor sin argumentos
-    public Evento() {
-
+    public String getId() {
+        return id;
     }
 
-    // Getters y Setters
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Map<String, Usuario> getParticipantes() {
+        return participantes;
+    }
+
+    public void setParticipantes(Map<String, Usuario> participantes) {
+        this.participantes = participantes;
+    }
+
     public String getTitulo() {
         return titulo;
     }
@@ -81,6 +110,18 @@ public class Evento {
         this.categoria = categoria;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "Evento{" +
+                "id='" + id + '\'' +
+                ", titulo='" + titulo + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", nombreCreador='" + nombreCreador + '\'' +
+                ", categoria='" + categoria + '\'' +
+                ", fecha='" + fecha + '\'' +
+                ", latitud=" + latitud +
+                ", longitud=" + longitud +
+                ", participantes=" + participantes + // Ahora mostrará la representación del Map
+                '}';
+    }
 }

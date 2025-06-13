@@ -2,8 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="160dp"
-    android:background="@color/verdeClaro"
-    android:gravity="bottom"
+    android:background="@color/VerdePrincipal" android:gravity="bottom"
     android:orientation="vertical"
     android:padding="16dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
@@ -23,9 +22,6 @@
         android:text="@string/eslogan"
         android:textStyle="bold"
         android:textSize="18sp"
-        android:textColor="@android:color/white"
-        android:fontFamily="@font/mufan_rough"/>
-
-
+        android:textColor="@color/white" android:fontFamily="@font/mufan_rough"/>
 
 </LinearLayout>

@@ -6,7 +6,8 @@
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     app:cardCornerRadius="8dp"
-    app:cardElevation="4dp">
+    app:cardElevation="4dp"
+    app:cardBackgroundColor="@color/BlancoHuevo">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,7 +21,7 @@
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:textSize="18sp"
-            android:textColor="@android:color/black"
+            android:textColor="@color/VerdePrincipal"
             android:text="Título del Evento" />
 
         <TextView
@@ -29,6 +30,7 @@
             android:layout_height="wrap_content"
             android:textSize="14sp"
             android:layout_marginTop="4dp"
+            android:textColor="@color/black"
             android:text="Categoría: " />
 
         <TextView
@@ -37,6 +39,7 @@
             android:layout_height="wrap_content"
             android:textSize="14sp"
             android:layout_marginTop="4dp"
+            android:textColor="@color/black"
             android:text="Fecha: " />
 
         <TextView
@@ -47,6 +50,7 @@
             android:maxLines="3"
             android:ellipsize="end"
             android:layout_marginTop="8dp"
+            android:textColor="@color/black"
             android:text="Descripción: " />
 
         <TextView
@@ -55,7 +59,19 @@
             android:layout_height="wrap_content"
             android:textSize="12sp"
             android:layout_marginTop="8dp"
+            android:textColor="@color/black"
             android:text="Creador: " />
+
+        <Button
+            android:id="@+id/btnEliminarEvento"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/AmarilloOscuro"
+            android:text="Eliminar evento"
+            android:visibility="gone"/>
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

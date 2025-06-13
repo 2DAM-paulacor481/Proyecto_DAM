@@ -3,10 +3,17 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="blancoVerdoso">#E0F2F7</color>
-    <color name="verdeClaro">#81C784</color>
-    <color name="verdeApagado">#388E3C</color>
-    <color name="verdeOscuro">#1B5E20</color>
-    <color name="verdePrincipal">#4CAF50</color>
-    <color name="grisClaro">#B8B8B8</color>
+
+    <color name="VerdePrincipal">#00796B</color>
+    <color name="VerdePrincipalOscuro">#004D40</color>
+    <color name="verdeAgua">#4DB6AC</color>
+
+    <color name="Amarillo">#FFC107</color>
+    <color name="AmarilloOscuro">#FFA000</color>
+
+    <color name="BlancoHuevoClaro">#F5F5F5</color>
+    <color name="BlancoHuevo">#FFFFFF</color>
+
+    <color name="VerdeSuccess">#4CAF50</color>
+    <color name="RojoCerrarError">#D32F2F</color>
 </resources>

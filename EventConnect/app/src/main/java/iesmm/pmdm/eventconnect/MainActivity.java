@@ -2,15 +2,13 @@ package iesmm.pmdm.eventconnect;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.icu.text.LocaleDisplayNames;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
-// import android.widget.TextView; // Si usas tvUsuario y tvInfo, asegúrate de importarlo
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle; // Necesario para el botón de hamburguesa
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -25,15 +23,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-// Importa tus fragmentos
 import iesmm.pmdm.eventconnect.Fragments.administrador.ListaUsuariosAdminFragment;
 import iesmm.pmdm.eventconnect.Fragments.ambosUsuarios.ListaEventosFragment;
 import iesmm.pmdm.eventconnect.Fragments.ambosUsuarios.MapaFragment;
 import iesmm.pmdm.eventconnect.Fragments.ambosUsuarios.PerfilFragment;
-// TODO: Si tienes un fragmento de lista de usuarios para admin, impórtalo aquí
-// import iesmm.pmdm.eventconnect.Fragments.AdminUserListFragment;
-// TODO: Si tienes un fragmento de perfil de admin, impórtalo aquí
-// import iesmm.pmdm.eventconnect.Fragments.PerfilAdminFragment;
+
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -42,23 +36,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DatabaseReference Database;
     private String userId, idRol;
 
-    // Referencias de UI de la actividad (ahora variables para el layout actual)
     private DrawerLayout drawerLayout;
-    private NavigationView sideNavigationView; // Tu NavigationView lateral
+    private NavigationView sideNavigationView;
     private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("MainActivity", "onCreate() llamado");
 
         mAuth = FirebaseAuth.getInstance();
 
         userId = getIntent().getStringExtra("userId");
-        Log.d("MainActivity", "userId recibido del Intent: " + userId);
 
         if ((userId == null || userId.isEmpty())) {
-            Log.d("MainActivity", "Usuario autenticado pero sin userId válido del Intent, redirigiendo a Login");
             redirectToLogin();
             return;
         }
@@ -66,7 +56,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (userId != null && !userId.isEmpty()) {
             Database = FirebaseDatabase.getInstance("https://eventconnectapp-96ed6-default-rtdb.europe-west1.firebasedatabase.app")
                     .getReference("usuarios").child(userId);
-            Log.d("MainActivity", "Referencia a la base de datos con userId: " + Database);
 
             Database.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -75,36 +64,38 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     if (snapshot.exists()) {
                          idRol = snapshot.child("id_rol").getValue(String.class);
 
-                        // Cargar el layout correcto basado en el rol
-                        if ("1".equals(idRol)) { // Rol de Administrador
-                            setContentView(R.layout.layout_admin_menu); // Cargar layout de administrador
+                        // Cargo el layout correcto segun en el rol
+                        // Rol de Administrador
+                        if ("1".equals(idRol)) {
+                            setContentView(R.layout.layout_admin_menu);
 
-                            toolbar = findViewById(R.id.toolbar_admin); // ID de tu Toolbar en activity_admin.xml
-                            drawerLayout = findViewById(R.id.drawer_layout_admin); // ID de tu DrawerLayout en activity_admin.xml
-                            sideNavigationView = findViewById(R.id.nav_view_admin); // ID de tu NavigationView en activity_admin.xml
-                            setSupportActionBar(toolbar); // Establecer la Toolbar como ActionBar
+                            toolbar = findViewById(R.id.toolbar_admin);
+                            drawerLayout = findViewById(R.id.drawer_layout_admin);
+                            sideNavigationView = findViewById(R.id.nav_view_admin);
+                            setSupportActionBar(toolbar);
                             sideNavigationView.getMenu().clear();
                             sideNavigationView.inflateMenu(R.menu.menu_admin);
-                            sideNavigationView.setNavigationItemSelectedListener(MainActivity.this); // Set the listener
+                            sideNavigationView.setNavigationItemSelectedListener(MainActivity.this);
                             setupDrawerAndToolbar();
-                            loadFragment(new MapaFragment(), R.id.nav_mapa_eventos); // O R.id.nav_perfil con new PerfilAdminFragment()
+                            loadFragment(new MapaFragment(), R.id.nav_mapa_eventos);
 
-                        } else if ("2".equals(idRol)) { // Rol de Usuario Normal
-                            setContentView(R.layout.layout_usuario_menu); // Cargar layout de usuario
+                        // Rol de Usuario Normal
+                        } else if ("2".equals(idRol)) {
+                            setContentView(R.layout.layout_usuario_menu);
                             Log.d("MainActivity", "Cargando layout de usuario");
 
-                            toolbar = findViewById(R.id.toolbar_usuario); // ID de tu Toolbar en activity_user.xml
-                            drawerLayout = findViewById(R.id.drawer_layout_usuario); // ID de tu DrawerLayout en activity_user.xml
-                            sideNavigationView = findViewById(R.id.nav_view_usuario); // ID de tu NavigationView en activity_user.xml
-                            setSupportActionBar(toolbar); // Establecer la Toolbar como ActionBar
+                            toolbar = findViewById(R.id.toolbar_usuario);
+                            drawerLayout = findViewById(R.id.drawer_layout_usuario);
+                            sideNavigationView = findViewById(R.id.nav_view_usuario);
+                            setSupportActionBar(toolbar);
 
                             sideNavigationView.getMenu().clear();
                             sideNavigationView.inflateMenu(R.menu.menu_usuario);
-                            sideNavigationView.setNavigationItemSelectedListener(MainActivity.this); // Set the listener
+                            sideNavigationView.setNavigationItemSelectedListener(MainActivity.this);
 
                             setupDrawerAndToolbar();
 
-                            loadFragment(new MapaFragment(), R.id.nav_mapa_eventos); // O R.id.nav_perfil con new PerfilUserFragment()
+                            loadFragment(new MapaFragment(), R.id.nav_mapa_eventos);
 
                         } else {
                             setContentView(R.layout.layout_usuario_menu);
@@ -148,6 +139,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 }
             });
         } else if (userId == null) {
+            // Si userId es nulo, redirige a Login
             redirectToLogin();
         }
     }
@@ -163,7 +155,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void loadFragment(Fragment fragment, int menuItemId) {
-        //  el ID del contenedor de fragmentos basado en el rol actual
         int fragmentContainerId;
         if ("1".equals(idRol)) {
             fragmentContainerId = R.id.fragment_container_admin;
@@ -188,13 +179,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+    // Menu de navegacion
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        // Fragment q voy a cargar
         Fragment selectedFragment = null;
 
-        // Id del fragment container según el rol
         int fragmentContainerId;
         if ("1".equals(idRol)) {
             fragmentContainerId = R.id.fragment_container_admin;
@@ -220,7 +210,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (selectedFragment != null) {
             Bundle bundle = new Bundle();
-            bundle.putString("rol", idRol);
+            bundle.putString("idRol", idRol);
             selectedFragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction()
                     .replace(fragmentContainerId, selectedFragment)
@@ -245,6 +235,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         logout();
     }
 
+    // Cerrar sesion
     private void logout() {
         SharedPreferences prefs = getSharedPreferences("UserPrefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
@@ -256,8 +247,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         redirectToLogin();
     }
 
+    // Vuelvo hacia el Login
     private void redirectToLogin() {
-        Intent intent = new Intent(MainActivity.this, Login.class); // Asegúrate que esta es tu clase de Login
+        Intent intent = new Intent(MainActivity.this, Login.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();

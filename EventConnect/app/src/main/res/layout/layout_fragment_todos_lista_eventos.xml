@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="8dp"
-    >
+    android:background="@color/BlancoHuevoClaro">
 
     <TextView
         android:id="@+id/tv_titulo_lista_eventos"
@@ -15,7 +15,8 @@
         android:gravity="center"
         android:text="Todos los Eventos"
         android:textSize="24sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textColor="@color/VerdePrincipal" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_eventos"

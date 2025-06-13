@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="24dp"
-    android:background="@color/blancoVerdoso"
+    android:background="@color/BlancoHuevoClaro"
     tools:context=".Register">
 
     <ImageView
@@ -24,53 +24,53 @@
         android:text="@string/register"
         android:textSize="32sp"
         android:layout_marginBottom="32dp"
-        android:textColor="@color/verdeApagado"
+        android:textColor="@color/VerdePrincipal"
         android:textStyle="bold"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/nombreUser"
-        android:textColorHint="@color/verdeClaro"
-        app:boxStrokeColor="@color/verdeApagado"
-        app:hintTextColor="@color/verdeApagado">
+        android:textColorHint="@color/black"
+        app:boxStrokeColor="@color/VerdePrincipal"
+        app:hintTextColor="@color/VerdePrincipal">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/verdeOscuro"/>
+            android:textColor="@color/black"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/email"
-        android:textColorHint="@color/verdeClaro"
-        app:boxStrokeColor="@color/verdeApagado"
-        app:hintTextColor="@color/verdeApagado">
+        android:textColorHint="@color/black"
+        app:boxStrokeColor="@color/VerdePrincipal"
+        app:hintTextColor="@color/VerdePrincipal">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/verdeOscuro"/>
+            android:textColor="@color/black"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/password"
-        android:textColorHint="@color/verdeClaro"
-        app:boxStrokeColor="@color/verdeApagado"
-        app:hintTextColor="@color/verdeApagado">
+        android:textColorHint="@color/black"
+        app:boxStrokeColor="@color/VerdePrincipal"
+        app:hintTextColor="@color/VerdePrincipal">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
-            android:textColor="@color/verdeOscuro"/>
+            android:textColor="@color/black"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <ProgressBar
@@ -86,7 +86,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:backgroundTint="@color/verdePrincipal"
+        android:backgroundTint="@color/Amarillo"
         android:textColor="@android:color/white"
         android:paddingHorizontal="48dp"
         android:textSize="18sp"/>
@@ -97,7 +97,7 @@
         android:textSize="18sp"
         android:layout_marginTop="32dp"
         android:gravity="center"
-        android:textColor="@color/verdeClaro"
+        android:textColor="@color/verdeAgua"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

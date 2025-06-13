@@ -14,7 +14,6 @@ import androidx.fragment.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import iesmm.pmdm.eventconnect.DAO.DAOImpl;

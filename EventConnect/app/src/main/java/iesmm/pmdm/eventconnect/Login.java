@@ -1,7 +1,6 @@
 package iesmm.pmdm.eventconnect;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -21,7 +20,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.Objects;
@@ -79,7 +77,7 @@ public class Login extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             if (user != null) {
                                 String userId = user.getUid();
-                                Log.d("Login", "Autenticación Firebase Auth exitosa. UID: " + userId);
+                                Log.d("Login", "Autenticación Firebase Auth exitosa " + userId);
 
                                 fetchUserDetailsAndNavigate(userId);
                             } else {
@@ -87,7 +85,7 @@ public class Login extends AppCompatActivity {
                                 progressBar.setVisibility(View.GONE);
                             }
                         } else {
-                            Log.w("Login", "Autenticación Firebase Auth fallida, intentando con DB. Error: " + task.getException().getMessage());
+                            Log.w("Login", "Autenticación Firebase Auth fallida," + task.getException().getMessage());
                         }
                     });
         });
@@ -109,10 +107,8 @@ public class Login extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } else {
-                    // Esto puede ocurrir si un usuario se autentica con Auth pero no se guardan sus datos en DB con ese UID
-                    // O si el userId manual no existe en la rama de usuarios.
+
                     Toast.makeText(Login.this, "Error: Datos de usuario no encontrados en la base de datos para ID: " + userId, Toast.LENGTH_LONG).show();
-                    // Si el usuario se autenticó con Firebase Auth pero no hay datos en DB, podemos cerrar sesión de Auth
                     if (mAuth.getCurrentUser() != null && Objects.equals(mAuth.getCurrentUser().getUid(), userId)) {
                         mAuth.signOut();
                     }
