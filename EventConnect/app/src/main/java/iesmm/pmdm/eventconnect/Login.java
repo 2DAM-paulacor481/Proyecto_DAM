@@ -38,6 +38,7 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        // Objeto FirebaseAuth para autenticación Firebase
         mAuth = FirebaseAuth.getInstance();
         usersDatabaseRef = FirebaseDatabase.getInstance("https://eventconnectapp-96ed6-default-rtdb.europe-west1.firebasedatabase.app")
                 .getReference("usuarios");
@@ -54,6 +55,7 @@ public class Login extends AppCompatActivity {
             finish();
         });
 
+        // Configurar el botón de inicio de sesión con el escuchador
         buttonLogin.setOnClickListener(view -> {
             progressBar.setVisibility(View.VISIBLE);
 

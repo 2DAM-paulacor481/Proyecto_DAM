@@ -117,10 +117,6 @@ public class ListaUsuariosAdminFragment extends Fragment {
                         Usuario usuario = userSnapshot.getValue(Usuario.class);
                         String rol = userSnapshot.child("id_rol").getValue(String.class);
 
-                        // Si el rol es nulo, lo igualo a 0
-                        if (rol == null) {
-                            rol = "0";
-                        }
 
 
                         if (usuario != null) {
